@@ -21,3 +21,4 @@ Route::post('/login',[Usercontroller::class,'login']);
 Route::get('/user/{id}', function($id) {
     return User::with('distirct.governorate')->find($id);
 });
+
