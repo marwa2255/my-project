@@ -8,7 +8,7 @@ class user_type extends Model
 {
     public function User()
     {
-        return $this ->hasmany(drivo_user::class);
+        return $this ->hasmany(User::class);
     }
 }
 

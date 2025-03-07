@@ -6,11 +6,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable,HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -45,4 +47,47 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    
+  
+        protected $guarded = [];
+    
+        protected $table = 'users';
+    
+        
+        
+        
+        
+        
+        public function getEmailForAuthentication()
+        {
+            return $this->user_email;
+        }
+        public function getAuthPassword()
+        {
+            return $this->user_password; 
+        }
+    
+    
+    
+    
+    
+       
+        
+        public function user_type()
+        {
+            return $this ->belongsTo(user_type::class);
+        }
+       
+        // في نموذج User
+    public function distirct()
+    {
+    return $this->belongsTo(distirct::class, 'distircts_id');
+        }
+
+        
+        public function governorate()
+        {
+            return $this->belongsTo(Governorate::class, 'gover_id'); 
+        }
+        
 }

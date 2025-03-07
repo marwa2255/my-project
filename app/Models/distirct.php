@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class distirct extends Model
 {protected $table = 'distircts';
-    public function drivo_user()
+    public function user()
     {
-        return $this->hasMany(drivo_user::class,'distircts_id');
+        return $this->hasMany(User::class,'distircts_id');
     }
     public function governorate()
     {

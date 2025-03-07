@@ -19,6 +19,10 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->foreignid('distircts_id')->constrained('districts');
+            $table->integer('user_phone');
+            $table->foreignid('user_type_id')->constrained('user_type');
+           
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

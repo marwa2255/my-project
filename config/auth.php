@@ -35,12 +35,16 @@ return [
     |
     */
 
-    'guards' => [
-        'web' => [
-            'driver' => 'session',
-            'provider' => 'drivo_users',
-        ],
+   'guards' => [
+    'web' => [
+        'driver' => 'session',
+        'provider' => 'users',  // تأكد من أن اسم المزود هنا يتطابق مع المزود في providers
     ],
+    'api' => [
+        'driver' => 'sanctum',  // إضافة guard خاص بـ Sanctum
+        'provider' => 'users',  // استخدام نفس المزود
+    ],
+],
 
     /*
     |--------------------------------------------------------------------------
@@ -59,19 +63,20 @@ return [
     |
     */
 
-    'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', APP\Models\drivo_user::class),
-            'table' => 'drivo_users',
-          
-        ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+  'providers' => [
+    'users' => [
+        'driver' => 'eloquent',
+        'model' => env('AUTH_MODEL', App\Models\User::class),  // تأكد من أن النموذج هو DrivoUser
+        'table' => 'users',  // تأكد من أن اسم الجدول هو نفسه الذي في قاعدة البيانات
     ],
+],
+
+/*
+'users' => [
+    'driver' => 'database',
+    'table' => 'users',
+],
+*/
 
     /*
     |--------------------------------------------------------------------------
@@ -94,7 +99,7 @@ return [
 
     'passwords' => [
         'users' => [
-            'provider' => 'drivo_users',
+            'provider' => 'users',
             'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
             'expire' => 60,
             'throttle' => 60,
